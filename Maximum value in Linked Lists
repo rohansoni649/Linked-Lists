@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL;
+
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+
+    for(i=1;i<n;i++)
+    {
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+void display(struct node *p)
+{
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+
+int Max(struct node *p)
+{
+    int m=-32767;   //smallest value that can be entered in integer
+		     // same goes with the minimum value we take m=32767 
+    while(p!=NULL)
+    {
+        if(p->data>m)
+        {
+            m=p->data;
+        }
+        p=p->next;
+    }
+    return m;
+}
+int main()
+{
+    int A[]={5,6,7,18,9};
+    create(A,5);
+    display(first);
+     printf("\nThe Maximum value in the LL is : %d",Max(first));
+}
