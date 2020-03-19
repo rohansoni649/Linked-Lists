@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<conio.h>
+struct node
+{
+    int data;
+    struct node *link;
+};
+int main()
+{
+    struct node *root;
+    root=(struct node *)malloc(sizeof(struct node));
+    scanf("%d",&root->data);
+    printf("the value is: %d",root->data);
+    return 0;
+}
