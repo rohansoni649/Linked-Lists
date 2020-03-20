@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node *)malloc(sizeof(struct node));
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+
+    for(i=1;i<n;i++)
+    {
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void display(struct node *p)
+{
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+
+int count(struct node *p)    
+{
+    int count=0;
+    while(p!=NULL)
+    {
+        count++;
+        p=p->next;
+    }
+    return count;
+}
+
+int Delete(struct node *p, int index)
+{
+    struct node *q;
+    int x=-1;
+    if(index < 1 && index > count(first))
+        return -1;
+    if(index==1)
+    {
+        q=first;
+        x=q->data;
+        first=q->next;
+        q=NULL;
+        return x;
+    }
+    else
+    {
+        int i;
+        for(i=0;i<index-1;i++)
+        {
+            q=p;
+            p=p->next;
+        }
+        q->next=p->next;
+        x=p->data;
+        p=NULL;
+        return x;
+    }
+}
+
+int main()
+{
+   int A[]={10,20,30,40,50};
+   create(A,5);
+   display(first);
+   count(first);
+   printf("\nThe deleted element is %d\n",Delete(first,4));
+   display(first);
+
+
+   return 0;
+}
