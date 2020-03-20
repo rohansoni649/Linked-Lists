@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL,*second=NULL,*third=NULL;
+
+void create1(int A[], int n)
+{
+    struct node *t,*last;
+    int i;
+    first=(struct node *)malloc(sizeof(struct node));
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+
+    for(i=1;i<n;i++)
+    {
+        t=(struct node *)malloc(sizeof(struct node));
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void create2(int B[], int n)
+{
+    struct node *t,*last;
+    int i;
+    second=(struct node *)malloc(sizeof(struct node));
+    second->data=B[0];
+    second->next=NULL;
+    last=second;
+
+    for(i=1;i<n;i++)
+    {
+        t=(struct node *)malloc(sizeof(struct node));
+        t->data=B[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void merge(struct node *p, struct node *q)
+{
+    struct node *last;
+    if(p->data < q->data)
+    {
+        third=last=p;
+        p=p->next;
+        third->next=NULL;
+    }
+    else
+    {
+        third=last=q;
+        q=q->next;
+        third->next=NULL;
+    }
+
+    while(p!=NULL && q!=NULL)
+    {
+        if(p->data < q->data)
+        {
+            last->next=p;
+            last=p;
+            p=p->next;
+            last->next=NULL;
+        }
+        else
+        {
+            last->next=q;
+            last=q;
+            q=q->next;
+            last->next=NULL;
+        }
+    }
+    if(p!=NULL)  last->next=p;
+    if(q!=NULL)  last->next=q   ;
+}
+
+void display(struct node *p)
+{
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+int main()
+{
+    int A[]={2,8,10,15,19};
+    int B[]={4,7,12,14,17};
+    create1(A,5);
+    create2(B,5);
+    printf("The first linked list is : ");
+    display(first);
+    printf("\nThe second linked list is : ");
+    display(second);
+    merge(first,second);
+    printf("\nThe Merged linked list is : ");
+    display(third);
+}
