@@ -47,7 +47,7 @@ void removingDuplicates(struct node *p)
     else
         {
             p->next=q->next;
-            free(q);
+            //free(q);
             q=p->next;
             q->data=x;
         }
